@@ -6,19 +6,11 @@ const router = require('koa-router')();
 // 创建一个Koa对象表示web app本身:
 const app = new Koa();
 
-// 配置路由
-router.get('/', async (ctx, next) => {
-	console.log(ctx)
-    ctx.response.body = '<h1>Index</h1>';
-});
-
-router.get('/hello/:name', async (ctx, next) => {
-    var name = ctx.params.name;
-    ctx.response.body = `<h1>Hello, ${name}!</h1>`;
-});
+// 控制器中间件
+const controller = require('./middlewares/controller')
 
 // 注册配置好的路由
-app.use(router.routes());
+app.use(controller());
 
 // 在端口3000监听:
 app.listen(3000);
